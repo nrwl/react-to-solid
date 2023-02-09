@@ -9,12 +9,15 @@
   "dependencies": {
     "@swc/helpers": "~0.4.11",
     "@tanstack/react-query": "^4.22.4",
+    "@tanstack/solid-query": "^4.24.4",
     "@trpc/client": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
     "axios": "^1.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "solid-js": "^1.6.10",
+    "solid-trpc": "^0.0.9",
     "tslib": "^2.3.0",
     "zod": "^3.20.2"
   },
@@ -70,6 +73,7 @@
     "vite": "^4.0.1",
     "vite-plugin-dts": "~1.7.1",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-solid": "^2.5.0",
     "vite-tsconfig-paths": "^4.0.2",
     "vitest": "^0.25.8"
   }
