@@ -102,7 +102,7 @@ export default defineConfig({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <link rel="shortcut icon" type="image/ico" href="/src/assets/favicon.ico" />
-    <link rel="stylesheet" type="image/ico" href="/src/assets/favicon.ico" />
+    <link rel="stylesheet" href="/src/styles.css" />
     <title>Solid App</title>
   </head>
   <body>
@@ -115,68 +115,16 @@ export default defineConfig({
   );
   tree.write(
     `apps/${names(options.name).fileName}/src/index.tsx`,
-    `import { Component, createSignal } from 'solid-js';
-// import { QueryClient, QueryClientProvider } from '@tanstack/solid-query';
-
-import logo from './logo.svg';
-import styles from './App.module.css';
-// import { TodoList, trpc } from '@nx-trpc-demo/components';
-// import { httpBatchLink } from 'solid-trpc';
+    `import { Component } from 'solid-js';
+import { render } from 'solid-js/web';
 
 const App: Component = () => {
-
-  // const [queryClient] = createSignal(() => new QueryClient());
-  // const [trpcClient] = createSignal(() =>
-  //   trpc.createClient({
-  //     links: [httpBatchLink({ url: '/api' })],
-  //   })
-  // );
-
-  // return (
-  //   <trpc.Provider client={trpcClient} queryClient={queryClient}>
-  //     <QueryClientProvider client={queryClient}>
-  //       <div class={styles.App}>
-  //         <header class={styles.header}>
-  //         <TodoList />
-  //           <img src={logo} class={styles.logo} alt="logo" />
-  //           <p>
-  //             Edit <code>src/App.tsx</code> and save to reload.
-  //           </p>
-  //           <a
-  //             class={styles.link}
-  //             href="https://github.com/solidjs/solid"
-  //             target="_blank"
-  //             rel="noopener noreferrer"
-  //           >
-  //             Learn Solid
-  //           </a>
-  //         </header>
-  //       </div>
-  //     </QueryClientProvider>
-  //   </trpc.Provider>
-  // );
-
-  return  (
-    <div class={styles.App}>
-        <header class={styles.header}>
-          <img src={logo} class={styles.logo} alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            class={styles.link}
-            href="https://github.com/solidjs/solid"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Solid
-          </a>
-        </header>
-      </div>
-  )
+  return (<h1>Hello ${names(options.name).className}</h1>) as any;
 };
 
-export default App;`
+export default App;
+
+render(App as any, document.getElementById('root'));`
   );
   updateJson(
     tree,
@@ -192,8 +140,24 @@ export default App;`
             backendProject: 'todo-server',
           },
         },
+        serve: {
+          ...json.targets.serve,
+          options: {
+            ...json.targets.serve.options,
+            proxyConfig: `apps/${names(options.name).fileName}/proxy.conf.json`,
+          },
+        },
       },
     })
+  );
+  tree.write(
+    `apps/${names(options.name).fileName}/proxy.conf.json`,
+    `{
+  "/api": {
+    "target": "http://localhost:3333",
+    "secure": false
+  }
+}`
   );
   await formatFiles(tree);
 }
