@@ -14,7 +14,7 @@ export default async function (tree: Tree, options: AppGeneratorSchema) {
     style: 'css',
     bundler: 'vite',
   });
-  setupTailwindGenerator(tree, { project: names(options.name).fileName });
+  await setupTailwindGenerator(tree, { project: names(options.name).fileName });
   tree.write(
     `apps/${names(options.name).fileName}/vite.config.ts`,
     `import { defineConfig } from 'vite';

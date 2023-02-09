@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "npx nx serve-fullstack todo-web"
+    "start": "npx nx run todo-solid:serve-fullstack"
   },
   "private": true,
   "dependencies": {

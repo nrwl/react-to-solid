@@ -6,3 +6,4 @@ export const trpcRouter = t.router({
 });
 
 export type TodoTrpcRouter = typeof trpcRouter;
+export { ToDo } from './lib/todos-router';
