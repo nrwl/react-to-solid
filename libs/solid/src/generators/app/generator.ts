@@ -10,7 +10,10 @@ import {
 } from '@nrwl/devkit';
 import * as path from 'path';
 import { AppGeneratorSchema } from './schema';
-import { applicationGenerator as reactAppGenerator } from '@nrwl/react';
+import {
+  applicationGenerator as reactAppGenerator,
+  setupTailwindGenerator,
+} from '@nrwl/react';
 import { Linter } from '@nrwl/linter';
 
 interface NormalizedSchema extends AppGeneratorSchema {
@@ -66,6 +69,7 @@ export default async function (tree: Tree, options: AppGeneratorSchema) {
     style: 'css',
     bundler: 'vite',
   });
+  setupTailwindGenerator(tree, { project: names(options.name).fileName });
   tree.write(
     `apps/${names(options.name).fileName}/vite.config.ts`,
     `import { defineConfig } from 'vite';
@@ -98,6 +102,7 @@ export default defineConfig({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <link rel="shortcut icon" type="image/ico" href="/src/assets/favicon.ico" />
+    <link rel="stylesheet" type="image/ico" href="/src/assets/favicon.ico" />
     <title>Solid App</title>
   </head>
   <body>
