@@ -1,0 +1,53 @@
+{
+  "name": "solid",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/solid/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/solid",
+        "main": "libs/solid/src/index.ts",
+        "tsConfig": "libs/solid/tsconfig.lib.json",
+        "assets": [
+          "libs/solid/*.md",
+          {
+            "input": "./libs/solid/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/solid/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/solid",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/solid",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/solid/**/*.ts",
+          "libs/solid/generators.json",
+          "libs/solid/executors.json",
+          "libs/solid/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
