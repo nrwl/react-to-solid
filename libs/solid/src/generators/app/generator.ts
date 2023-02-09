@@ -159,5 +159,27 @@ render(App as any, document.getElementById('root'));`
   }
 }`
   );
+  updateJson(
+    tree,
+    `apps/${names(options.name).fileName}/tsconfig.json`,
+    (json) => ({
+      ...json,
+      compilerOptions: {
+        strict: true,
+        target: 'ESNext',
+        module: 'ESNext',
+        moduleResolution: 'node',
+        allowSyntheticDefaultImports: true,
+        esModuleInterop: true,
+        jsx: 'preserve',
+        jsxImportSource: 'solid-js',
+        types: ['vite/client'],
+        noEmit: true,
+        isolatedModules: true,
+      },
+    })
+  );
+  tree.delete(`apps/${names(options.name).fileName}/src/main.tsx`);
+  tree.delete(`apps/${names(options.name).fileName}/src/app`);
   await formatFiles(tree);
 }
