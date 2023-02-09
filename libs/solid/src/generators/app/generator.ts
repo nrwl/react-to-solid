@@ -124,7 +124,7 @@ const App: Component = () => {
 
 export default App;
 
-render(App as any, document.getElementById('root'));`
+render(App as any, document.getElementById('root') || document.body);`
   );
   updateJson(
     tree,
